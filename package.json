@@ -1,0 +1,36 @@
+{
+  "name": "tap-watchtower",
+  "version": "0.0.1",
+  "description": "Watchtower container management for the keg",
+  "main": "tasks/index.js",
+  "repository": "https://github.com/simpleviewinc/tap-watchtower.git",
+  "author": "mpcarolin <mpcarolin.dev@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "clean": "cd node_modules/keg-core; yarn clean",
+    "clean:install": "yarn clean:full; yarn install",
+    "clean:full": "yarn clean; yarn clean:nm; yarn install",
+    "clean:nm": "rimraf ./yarn.lock; rimraf ./package.lock; rimraf node_modules",
+    "clean:rn": "yarn keg clean:rn",
+    "format": "yarn pretty",
+    "keg": "cd node_modules/keg-core; yarn",
+    "pretty": "./node_modules/.bin/prettier --config ./configs/prettier.config.js --write '**/*.{js,jsx}'",
+    "postinstall": "",
+    "setup": "yarn install --ignore-engines; cd node_modules/keg-core; yarn postinstall --ignore-engines",
+    "start": "cd node_modules/keg-core; expo start",
+    "task": "node ./tasks/runTask.js"
+  }, 
+  "dependencies": {
+    "@keg-hub/jsutils": "8.4.0",
+    "@keg-hub/args-parse": "6.2.1",
+    "@keg-hub/ask-it": "0.0.1",
+    "@keg-hub/spawn-cmd": "0.1.0",
+    "app-root-path": "3.0.0",
+    "express": "4.11.1",
+    "keg-core": "npm:@keg-hub/keg-core@9.0.1",
+    "module-alias": "2.2.2",
+    "nodemon": "2.0.4",
+    "prettier": "2.0.5"
+  }
+}
