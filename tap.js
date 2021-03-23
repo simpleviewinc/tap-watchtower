@@ -7,9 +7,6 @@ module.exports = {
         name: 'watchtower'
       },
     },
-    routes: {
-      '/': 'RootContainer'
-    },
   },
   expo: {
     name: 'tap-watchtower',
