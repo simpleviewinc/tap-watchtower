@@ -9,6 +9,10 @@ const addFlag = (name, value) => name && value
   ? `--${name}`
   : ''
 
+const addValues = str => str
+  ? str.replace(',', ' ')
+  : ''
+
 const buildCmd = params => {
   const dockerSocketPath = '/var/run/docker.sock'
   const dockerRegistryConfigPath = `${os.homedir()}/.docker/config.json`
@@ -19,6 +23,7 @@ const buildCmd = params => {
     cleanup,
     debug,
     runOnce,
+    containers,
     interval=2*60 // every 2 minutes
   } = params
 
@@ -30,7 +35,8 @@ const buildCmd = params => {
     ${addFlag('cleanup', cleanup)} \
     ${addFlag('debug', debug)} \
     ${addFlag('run-once', runOnce)} \
-    ${addParam('interval', interval)}`
+    ${addParam('interval', interval)} \
+    ${addValues(containers)}`
 }
 
 /**
@@ -41,9 +47,10 @@ const startWatchtower = async args => {
   console.log('starting watchtower')
   const { params } = args
   const cmd = buildCmd(params)
+  params.debug && console.log('Watchtower Command: ', cmd)
   await spawnCmd(cmd)
   await spawnCmd('docker attach watchtower')
-  // args.task.cliTask(args)dd
+  // args.task.cliTask(args)
 }
 
 module.exports = {
@@ -61,7 +68,7 @@ module.exports = {
       },
       debug: {
         alias: ['verbose'],
-        description: 'Output watchtower logs',
+        description: 'Output logs',
         default: false
       },
       runOnce: {
@@ -75,6 +82,11 @@ module.exports = {
       interval: {
         description: 'Time in seconds between image polls',
         default: 5*60, // 5 minutes
+      },
+      containers: {
+        alias: ['c'],
+        description: 'Container names to watch. If omitted, watches all containers.',
+        example: '--containers evf,keg-proxy,keg-herkin'
       }
     }
   }
