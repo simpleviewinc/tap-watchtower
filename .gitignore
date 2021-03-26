@@ -1,3 +1,6 @@
+# tap-watchtower
+watchtower.config.js
+
 # SQL3
 *.sqlite
 ios/platform.sqlite
