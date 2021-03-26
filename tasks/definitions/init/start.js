@@ -24,10 +24,13 @@ const buildCmd = params => {
     debug,
     runOnce,
     containers,
+    rm,
     interval=2*60 // every 2 minutes
   } = params
 
-  return `docker run -d \
+  return `docker run \
+    ${addFlag('rm', rm)} \
+    -d \
     --name watchtower \
     -v ${dockerApiSock}:${dockerSocketPath} \
     -v ${configPath}:/config.json \
@@ -44,10 +47,11 @@ const buildCmd = params => {
  * @param {Object} args 
  */
 const startWatchtower = async args => {
-  console.log('starting watchtower')
   const { params } = args
+
   const cmd = buildCmd(params)
   params.debug && console.log('Watchtower Command: ', cmd)
+
   await spawnCmd(cmd)
   await spawnCmd('docker attach watchtower')
   // args.task.cliTask(args)
@@ -73,6 +77,7 @@ module.exports = {
       },
       runOnce: {
         description: 'Run watchtower once then immediately exit',
+        alias: ['once'],
         default: false
       },
       cleanup: {
@@ -84,9 +89,15 @@ module.exports = {
         default: 5*60, // 5 minutes
       },
       containers: {
-        alias: ['c'],
+        alias: ['c', 'container', 'name', 'names'],
         description: 'Container names to watch. If omitted, watches all containers.',
         example: '--containers evf,keg-proxy,keg-herkin'
+      },
+      rm: {
+        alias: ['remove'],
+        description: 'Removes the watchtower container after it exits',
+        example: '--rm',
+        default: true,
       }
     }
   }
