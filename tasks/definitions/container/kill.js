@@ -10,7 +10,6 @@ const killWatchtower = async args => {
   const killed = await spawnCmd(`docker ${force ? 'kill' : 'stop'} watchtower`) 
   if (killed === 1)
     console.warn('Could not kill container')
-  await spawnCmd('docker rm watchtower') 
 }
 
 module.exports = {
