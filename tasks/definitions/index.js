@@ -21,5 +21,5 @@ const initialize = tasks => {
 }
 
 module.exports = {
-  ...initialize(require('./init')),
+  ...initialize(require('./container')),
 }
