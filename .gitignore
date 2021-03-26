@@ -1,5 +1,6 @@
 # tap-watchtower
 configs/watchtower.config.js
+configs/watchtower.config.json
 
 # SQL3
 *.sqlite
