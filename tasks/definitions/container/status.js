@@ -3,8 +3,7 @@ const { values } = require('../constants/values')
 const { getConfig } = require('../../utils/getConfig')
 
 /**
- * Attach to watchtower container
- * @param {Object} args 
+ * Prints out status 
  */
 const status = async () => {
   process.stdout.write('Watchtower status:\t')
@@ -22,7 +21,7 @@ module.exports = {
     name: 'status',
     action: status,
     example: 'keg watchtower status',
-    description : 'Initializes watchtower',
+    description : 'Prints out the status of the watchtower container and its current global config',
     alias: ['stat', 'info'],
     options: {}
   }

@@ -13,8 +13,8 @@ module.exports = {
   attach: {
     name: 'attach',
     action: attach,
-    example: 'keg watchtower start',
-    description : 'Initializes watchtower',
+    example: 'keg watchtower att',
+    description : 'Attaches to the watchtower container.',
     alias: ['att', 'init'],
     options: {}
   }

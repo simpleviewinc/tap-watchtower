@@ -22,7 +22,7 @@ module.exports = {
     name: 'kill',
     action: killWatchtower,
     example: 'keg watchtower kill',
-    description : 'Kills watchtower',
+    description : 'Kills watchtower container',
     alias: ['quit', 'stop'],
     options: {
       force: {

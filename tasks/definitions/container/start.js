@@ -99,7 +99,7 @@ module.exports = {
     name: 'start',
     action: startWatchtower,
     example: 'keg watchtower start',
-    description : 'Initializes watchtower',
+    description : 'Starts the watchtower container',
     alias: ['setup', 'init'],
     options: {
       config: {
