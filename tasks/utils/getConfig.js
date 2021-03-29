@@ -15,6 +15,10 @@ const configPaths = [
 ]
 
 module.exports = {
+  /**
+   * @param  {...string} paths - paths to configuration files (later params take precedence)
+   * @returns {object} the merged configuration object from all the paths
+   */
   getConfig: (...paths) => deepMerge(
     ...[ 
       ...configPaths, 
