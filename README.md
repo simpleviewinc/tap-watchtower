@@ -5,10 +5,12 @@ It will automatically restart any container running on your machine whenever new
 
 ## Tasks
 
-`tap-watchtower` implements two tasks:
+`tap-watchtower` implements four tasks:
 
 * `keg watchtower start`
 * `keg watchtower kill`
+* `keg watchtower attach`
+* `keg watchtower status`
 
 Run the help commands (e.g. `keg watchtower start -h`) to learn more.
 
