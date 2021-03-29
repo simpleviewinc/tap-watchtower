@@ -1,4 +1,5 @@
 module.exports = {
-  ...require('./start'),
+  ...require('./attach'),
   ...require('./kill'),
+  ...require('./start'),
 }

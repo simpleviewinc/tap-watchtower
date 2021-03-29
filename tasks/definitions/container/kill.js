@@ -1,4 +1,5 @@
 const { spawnCmd } = require('@keg-hub/spawn-cmd')
+const { values } = require('../constants/values')
 
 /**
  * Kill watchtower container
@@ -7,9 +8,13 @@ const { spawnCmd } = require('@keg-hub/spawn-cmd')
 const killWatchtower = async args => {
   const { params } = args
   const { force } = params
-  const killed = await spawnCmd(`docker ${force ? 'kill' : 'stop'} watchtower`) 
-  if (killed === 1)
-    console.warn('Could not kill container')
+
+  const killed = await spawnCmd(
+    `docker ${force ? 'kill' : 'stop'} ${values.containerName}`
+  ) 
+
+  killed === 1 &&
+    console.warn(`Could not kill ${values.containerName}`)
 }
 
 module.exports = {

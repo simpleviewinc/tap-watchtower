@@ -1,6 +1,8 @@
 const { spawnCmd } = require('@keg-hub/spawn-cmd')
 const { getConfig } = require('../../utils/getConfig')
+const { values } = require('../constants/values')
 const { addParam, addFlag, addValues } = require('../../utils/cmd')
+const { attach: attachTask } = require('./attach')
 const os = require('os')
 
 // task parameter defaults
@@ -36,7 +38,8 @@ const buildCmd = params => {
   return `docker run \
     ${addFlag('rm', rm)} \
     -d \
-    --name watchtower \
+    -it \
+    --name ${values.containerName} \
     -v ${dockerApiSock}:${dockerSocketPath} \
     -v ${configPath}:/config.json \
     containrrr/watchtower \
@@ -78,10 +81,11 @@ const startWatchtower = async args => {
   const params = getResolvedParams(args.params)
 
   const cmd = buildCmd(params)
-  params.debug && console.log('Running:', cmd)
+  params.debug && console.log(cmd.replace(/\s+/g, ' '))
 
   await spawnCmd(cmd)
-  await spawnCmd('docker attach watchtower')
+
+  params.attach && attachTask.action()
 }
 
 
@@ -122,7 +126,12 @@ module.exports = {
         alias: ['remove'],
         description: 'Removes the watchtower container after it exits',
         example: '--rm',
-      }
+      },
+      attach: {
+        alias: ['att'],
+        description: 'Attaches to the container after it starts',
+        default: false
+      },
     }
   }
 }
