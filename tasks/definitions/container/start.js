@@ -4,6 +4,7 @@ const { values } = require('../constants/values')
 const { addParam, addFlag, addValues } = require('../../utils/cmd')
 const { attach: attachTask } = require('./attach')
 const os = require('os')
+const { exists } = require('@keg-hub/jsutils/build/cjs')
 
 // task parameter defaults
 const paramDefaults = {
@@ -64,9 +65,12 @@ const getResolvedParams = taskParams => {
 
   // Merge configs together, with precedence order: 
   //  command line task parameters, followed by config files, followed by defaults
+  const sources = [ cmdParams, config, paramDefaults ]
   return Object.keys(cmdParams).reduce(
     (acc, key) => {
-      acc[key] = cmdParams[key] || config[key] || paramDefaults[key]
+      // find the first source that has a **defined** key 
+      const source = sources.find(src => exists(src[key])) || {}
+      acc[key] = source[key]
       return acc
     },
     {}
@@ -112,6 +116,7 @@ module.exports = {
       },
       cleanup: {
         description: 'Removes orphaned images once a container is restarted with a new image',
+        default: false
       },
       interval: {
         description: 'Time in seconds between image polls',
@@ -126,6 +131,7 @@ module.exports = {
         alias: ['remove'],
         description: 'Removes the watchtower container after it exits',
         example: '--rm',
+        default: false
       },
       attach: {
         alias: ['att'],
