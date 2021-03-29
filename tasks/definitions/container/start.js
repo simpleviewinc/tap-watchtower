@@ -36,8 +36,6 @@ const buildCmd = params => {
     interval=2*60 // every 2 minutes
   } = params
 
-  console.log({rm})
-
   return `docker run \
     ${addFlag('rm', rm)} \
     -d \
@@ -73,7 +71,6 @@ const getResolvedParams = taskParams => {
       // find the first source that has a **defined** key 
       const source = sources.find(src => exists(src[key])) || {}
       acc[key] = source[key]
-      key === 'rm' && console.log({ param: cmdParams[key], config: config[key], default: paramDefaults[key], acc })
       return acc
     },
     {}
