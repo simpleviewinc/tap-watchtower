@@ -78,7 +78,8 @@ const getResolvedParams = taskParams => {
 }
 
 /**
- * Run parkin tests in container
+ * Run watchtower container, configured by task parameters and global
+ * watchtower.config.js(on) files
  * @param {Object} args 
  */
 const startWatchtower = async args => {
