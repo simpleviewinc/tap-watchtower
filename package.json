@@ -14,23 +14,19 @@
     "clean:nm": "rimraf ./yarn.lock; rimraf ./package.lock; rimraf node_modules",
     "clean:rn": "yarn keg clean:rn",
     "format": "yarn pretty",
-    "keg": "cd node_modules/keg-core; yarn",
-    "pretty": "./node_modules/.bin/prettier --config ./configs/prettier.config.js --write '**/*.{js,jsx}'",
-    "postinstall": "",
-    "setup": "yarn install --ignore-engines; cd node_modules/keg-core; yarn postinstall --ignore-engines",
-    "start": "cd node_modules/keg-core; expo start",
-    "task": "node ./tasks/runTask.js"
-  }, 
+    "keg": "cd node_modules/keg-core; yarn"
+  },
   "dependencies": {
     "@keg-hub/jsutils": "8.4.0",
-    "@keg-hub/args-parse": "6.2.1",
-    "@keg-hub/ask-it": "0.0.1",
     "@keg-hub/spawn-cmd": "0.1.0",
     "app-root-path": "3.0.0",
-    "express": "4.11.1",
-    "keg-core": "npm:@keg-hub/keg-core@9.0.1",
-    "module-alias": "2.2.2",
+    "keg-core": "npm:@keg-hub/keg-core@9.0.1"
+  },
+  "devDependencies": {
+    "rimraf": "3.0.2",
+    "jest": "26.6.3",
+    "prettier": "2.0.5",
     "nodemon": "2.0.4",
-    "prettier": "2.0.5"
+    "module-alias": "2.2.2"
   }
 }
