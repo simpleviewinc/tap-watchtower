@@ -27,6 +27,7 @@ module.exports = {
     options: {
       force: {
         alias: [ 'f' ],
+        description: 'Forces the container to terminate (using SIGTERM signal via `docker kill`)',
         default: false
       },
     }
