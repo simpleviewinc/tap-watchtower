@@ -32,3 +32,11 @@ Run the help commands to learn more (e.g. `keg watchtower start -h`)
 * each property in your config maps to a parameter in the `start` task
 * any specified command line parameters will override the same values in your config
 
+## Tests
+* `yarn test:unit` or `yarn:test`
+* `yarn test:e2e` 
+  * end-to-end tests
+  * starts the container on your machine
+* `yarn test:all`
+  * unit and e2e
+
