@@ -1,6 +1,6 @@
-const { spawnCmd } = require('@keg-hub/spawn-cmd')
+const { asyncCmd } = require('@keg-hub/spawn-cmd')
 const { getConfig } = require('../../utils/getConfig')
-const { values } = require('../constants/values')
+const { values } = require('../../constants/values')
 const { addParam, addFlag, addValues } = require('../../utils/cmd')
 const { attach: attachTask } = require('./attach')
 const os = require('os')
@@ -97,9 +97,12 @@ const startWatchtower = async args => {
   const cmd = buildCmd(params)
   params.debug && console.log(cmd.replace(/\s+/g, ' '))
 
-  await spawnCmd(cmd)
+  const { error, data: containerId } = await asyncCmd(cmd)
+  error
+    ? console.error(error)
+    : console.log('Watchtower started.\n - Container ID:', containerId)
 
-  params.attach && attachTask.action()
+  !error && params.attach && attachTask.action()
 }
 
 

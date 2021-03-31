@@ -1,5 +1,5 @@
 const { spawnCmd } = require('@keg-hub/spawn-cmd')
-const { values } = require('../constants/values')
+const { values } = require('../../constants/values')
 
 /**
  * Kill watchtower container

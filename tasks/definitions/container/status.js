@@ -1,17 +1,16 @@
-const { spawnCmd } = require('@keg-hub/spawn-cmd')
 const { exists } = require('@keg-hub/jsutils')
-const { values } = require('../constants/values')
+const { values } = require('../../constants/values')
 const { getConfig } = require('../../utils/getConfig')
+const { getState, getInspect } = require('../../utils/docker')
 
 /**
  * Logs the watchtower container's running state
  */
 const printState = async () => {
   process.stdout.write(`"${values.containerName}" status:\t`)
-  await spawnCmd(
-    `docker inspect --format={{.State.Status}} ${values.containerName}`
-  )
-  process.stdout.write('\n')
+  const state = (await getState()).trim() || 'No container'
+  process.stdout.write(state + '\n')
+  return state
 }
 
 /**
@@ -23,6 +22,7 @@ const printConfig = () => {
   console.log('Global Config:')
   process.stdout.write(configStr)
   console.log('\n')
+  return configStr
 }
 
 /**
@@ -30,10 +30,9 @@ const printConfig = () => {
  */
 const printInspect = async () => {
   console.log(`"${values.containerName}" inspect results:`)
-  await spawnCmd(
-    `docker inspect ${values.containerName}`
-  )
-  console.log()
+  const data = await getInspect()
+  console.log(data)
+  return data
 }
 
 /**
@@ -52,9 +51,15 @@ const status = async (args) => {
 
   const noFlags = noFlagsSpecified(flags)
 
-  ;(noFlags || verbose || state) && await printState()
-  ;(noFlags || verbose || config) && await printConfig()
-  ;(verbose || inspect) && await printInspect() 
+  const stateOutput = (noFlags || verbose || state) && await printState()
+  const configOutput = (noFlags || verbose || config) && await printConfig()
+  const inspectOutput = (verbose || inspect) && await printInspect() 
+
+  return { 
+    state: stateOutput, 
+    config: configOutput, 
+    inspect: inspectOutput 
+  }
 }
 
 const taskOptions = {

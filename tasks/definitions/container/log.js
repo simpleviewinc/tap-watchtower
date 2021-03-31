@@ -1,15 +1,17 @@
-const { spawnCmd } = require('@keg-hub/spawn-cmd')
-const { values } = require('../constants/values')
+const { asyncCmd } = require('@keg-hub/spawn-cmd')
+const { values } = require('../../constants/values')
 
 /**
  * Simply calls docker logs command for the watchtower container with the options
  * @param {Array<string>} options - docker logs options
  * @returns 
  */
-const showLogs = options => {
-  return spawnCmd(
+const showLogs = async options => {
+  const { data } = await asyncCmd(
     `docker logs ${values.containerName} ${options.join(' ')}`
   )
+  console.log(data)
+  return data
 }
 
 /**
@@ -17,10 +19,11 @@ const showLogs = options => {
  */
 const showPathToOutputFile = async () => {
   process.stdout.write(`${values.containerName} log file path:\n\t`)
-  await spawnCmd(
+  const { data } = asyncCmd(
     `docker inspect --format='{{.LogPath}}' ${values.containerName}`
   ) 
   console.log()
+  return data
 }
 
 /**
