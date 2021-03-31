@@ -1,4 +1,4 @@
-const { addParam, addFlag, addValues } = require('../cmd')
+const { addParam, addParams, addFlag, addFlags, addValues } = require('../cmd')
 
 describe('addParam', () => {
   it('should return a key value pair', () => {
@@ -19,6 +19,20 @@ describe('addParam', () => {
   })
 })
 
+describe('addParams', () => {
+  it('should return a key value pair', () => {
+    expect(
+      addParams({ a: 'foo', b: 'bar'})
+    ).toEqual('--a foo --b bar')
+  })
+
+  it ('should return empty string for no value', () => {
+    expect(
+      addParams({})
+    ).toEqual('')
+  })
+})
+
 
 describe('addFlag', () => {
   it('should return a flag string', () => {
@@ -32,6 +46,20 @@ describe('addFlag', () => {
   it ('should return empty string for no value', () => {
     expect(
       addFlag('foo', false)
+    ).toEqual('')
+  })
+})
+
+describe('addFlags', () => {
+  it('should return a flag string', () => {
+    expect(
+      addFlags({ a: true, b: false})
+    ).toEqual('--a')
+  })
+
+  it ('should return empty string for no value', () => {
+    expect(
+      addFlags({})
     ).toEqual('')
   })
 })

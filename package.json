@@ -9,19 +9,13 @@
   "private": true,
   "scripts": {
     "test": "yarn jest",
-    "clean": "cd node_modules/keg-core; yarn clean",
-    "clean:install": "yarn clean:full; yarn install",
-    "clean:full": "yarn clean; yarn clean:nm; yarn install",
-    "clean:nm": "rimraf ./yarn.lock; rimraf ./package.lock; rimraf node_modules",
-    "clean:rn": "yarn keg clean:rn",
-    "format": "yarn pretty",
-    "keg": "cd node_modules/keg-core; yarn"
+    "clean": "rimraf yarn.lock node_modules",
+    "format": "yarn pretty"
   },
   "dependencies": {
     "@keg-hub/jsutils": "8.4.0",
     "@keg-hub/spawn-cmd": "0.1.0",
-    "app-root-path": "3.0.0",
-    "keg-core": "npm:@keg-hub/keg-core@9.0.1"
+    "app-root-path": "3.0.0"
   },
   "devDependencies": {
     "rimraf": "3.0.2",

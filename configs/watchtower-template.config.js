@@ -9,5 +9,6 @@ module.exports = {
   interval: 300, 
   containers: [],
   rm: true,
-  runOnce: false
+  runOnce: false,
+  restart: 'unless-stopped',
 }

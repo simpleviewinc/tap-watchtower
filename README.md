@@ -3,16 +3,22 @@
 `tap-watchtower` is a wrapper around [Watchtower](https://containrrr.dev/watchtower/introduction/) for the simpleviewinc/keg-hub project.
 It will automatically restart any container running on your machine whenever new images are pushed to registries.
 
+## Setup
+* First, setup [keg-cli](https://github.com/simpleviewinc/keg-cli) on your machine
+* Install dependencies: `yarn install`
+* See the [configuration](#configuration) section to learn about configuring watchtower
+
 ## Tasks
 
-`tap-watchtower` implements four tasks:
+`tap-watchtower` provides these tasks:
 
-* `keg watchtower start`
-* `keg watchtower kill`
 * `keg watchtower attach`
+* `keg watchtower kill`
+* `keg watchtower log`
+* `keg watchtower start`
 * `keg watchtower status`
 
-Run the help commands (e.g. `keg watchtower start -h`) to learn more.
+Run the help commands to learn more (e.g. `keg watchtower start -h`)
 
 ## Configuration
 
@@ -24,5 +30,5 @@ Run the help commands (e.g. `keg watchtower start -h`) to learn more.
   * your home directory
 * alternatively, you can pass a custom config path to the `start` task using the `--config` parameter
 * each property in your config maps to a parameter in the `start` task
-  * any specified command line parameters will override the same values in your config, however
+* any specified command line parameters will override the same values in your config
 
